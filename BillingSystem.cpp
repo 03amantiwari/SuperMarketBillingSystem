@@ -93,6 +93,55 @@ void addBill(Bill &b)
     }
 }
 
+void printBill(){
+    system("cls");
+    int count =0;
+    bool close = false;
+    while(!close){
+        system("cls");
+        int choice ;
+        cout<<"\t1. Add Bill."<<endl;
+        cout<<"\t2. Close Session."<<endl;
+        cout<<"\tEnter Choice : ";
+        cin>>choice;
+
+        if(choice == 1){
+            string item;
+            int quant;
+
+            cout<<"\tEnter Item : ";
+            cin>>item;
+
+            cout<<"\tEnter Quantity : ";
+            cin>>quant;
+
+            ifstream fin("Bill.txt");
+            ofstream fout("Bill.txt",ios::app);
+
+            string line;
+            bool found = false;
+
+            while(getline(fin,line)){
+                stringstream ss;
+                ss<<line;
+                string itemName;
+                double itemRate;
+                int itemQuantity;
+                char delimiter;
+                ss>>itemName>>delimiter>>itemRate>>delimiter>>itemQuantity;
+
+                if(item == itemName){
+                    found = true;
+                    if(quant<=itemQuantity){
+                        int amount = itemRate*quant;
+                        cout<<"\t"<<itemName<<"\t"<<itemRate<<"\t"<<itemQuantity;
+                    }
+                }
+            }
+        }
+    }
+}
+
 int main()
 {
 
